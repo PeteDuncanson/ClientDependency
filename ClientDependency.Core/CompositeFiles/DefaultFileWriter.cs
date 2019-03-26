@@ -20,7 +20,14 @@ namespace ClientDependency.Core.CompositeFiles
                 //if it is a file based dependency then read it
                 using (var fileStream = fi.OpenRead())
                 {
-                    WriteContentToStream(provider, sw, fileStream, type, http, origUrl);
+                    if (fi.FullName.IndexOf(".min.") > -1)
+                    {
+                        sw.WriteLine(fileStream); 
+                    }
+                    else
+                    {
+                        WriteContentToStream(provider, sw, fileStream, type, http, origUrl);
+                    }
                 }
                 return true;
             }
